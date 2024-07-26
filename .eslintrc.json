@@ -212,12 +212,6 @@
     "@typescript-eslint/require-array-sort-compare": "error",
     "@typescript-eslint/switch-exhaustiveness-check": "error",
     "unicorn/error-message": "error",
-    "unicorn/filename-case": [
-      "error",
-      {
-        "case": "kebabCase"
-      }
-    ],
     "unicorn/no-empty-file": "error",
     "unicorn/prefer-node-protocol": "warn"
   }
