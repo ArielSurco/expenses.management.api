@@ -1,15 +1,16 @@
 import { Router } from 'express'
 
 import { type RouterHandler } from '../server/routes'
+import { ValidateSchema } from '../shared/middlewares/ValidateSchema'
 
-import { createUser } from './controllers/createUser'
+import { createUser, createUserSchema } from './controllers/createUser'
 import { getUsers } from './controllers/getUsers'
 
 const router = Router()
 
 router.get('/', getUsers)
 
-router.post('/', createUser)
+router.post('/', ValidateSchema(createUserSchema, 'body'), createUser)
 
 export const userRouter: RouterHandler = {
   basePath: '/user',
