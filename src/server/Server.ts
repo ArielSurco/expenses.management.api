@@ -1,30 +1,30 @@
-import cors from 'cors';
-import express from 'express';
+import cors from 'cors'
+import express from 'express'
 
-import { ENV } from "../shared/constants/env";
+import { ENV } from '../shared/constants/env'
 
-import { ErrorHandler } from './ErrorHandler';
-import { routes } from './routes';
+import { ErrorHandler } from './ErrorHandler'
+import { routes } from './routes'
 
 export class Server {
-  private port: number;
-  private app: express.Application;
+  private port: number
+  private app: express.Application
 
   constructor() {
-    this.port = Number(ENV.PORT);
+    this.port = Number(ENV.PORT)
 
-    this.app = express();
+    this.app = express()
 
-    this.middlewares();
-    this.routes();
-    this.errorHandler();
+    this.middlewares()
+    this.routes()
+    this.errorHandler()
   }
 
   public start() {
     this.app.listen(this.port, () => {
       // eslint-disable-next-line no-console
-      console.log(`Server started on port ${String(this.port)}`);
-    });
+      console.log(`Server started on port ${String(this.port)}`)
+    })
   }
 
   private routes() {
@@ -38,7 +38,7 @@ export class Server {
   }
 
   private middlewares() {
-    this.app.use(express.json());
+    this.app.use(express.json())
     this.app.use(cors())
   }
 
