@@ -11,6 +11,7 @@ const router = Router()
 router.get('/', getUsers)
 
 router.post('/', ValidateSchema(createUserSchema, 'body'), createUser)
+router.post('/auth')
 
 export const userRouter: RouterHandler = {
   basePath: '/user',

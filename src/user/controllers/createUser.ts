@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 import { z } from 'zod'
 
 import { ResponseError } from '../../server/ResponseError'
@@ -26,7 +27,10 @@ export const createUser = Controller<never, CreateUserBody, Response>(async (req
     throw new ResponseError(400, 'User already exists')
   }
 
-  const user = new User({ email, password, username })
+  const salt = bcrypt.genSaltSync(10)
+  const hashedPassword = bcrypt.hashSync(password, salt)
+
+  const user = new User({ email, password: hashedPassword, username })
 
   await userRepository.save(user)
 
