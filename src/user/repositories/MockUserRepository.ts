@@ -28,12 +28,19 @@ const findByEmail: UserRepository['findByEmail'] = async (email) => {
   return Promise.resolve(foundUser)
 }
 
+const findById: UserRepository['findById'] = async (id) => {
+  const foundUser = users.find((user) => user.id === id) ?? null
+
+  return Promise.resolve(foundUser)
+}
+
 const getAll: UserRepository['getAll'] = async () => {
   return Promise.resolve(users)
 }
 
 export const mockUserRepository: UserRepository = {
   findByEmail,
+  findById,
   findByUsername,
   getAll,
   save,
