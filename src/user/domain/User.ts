@@ -1,3 +1,5 @@
+import { generateUUID } from '../../shared/utils/generateUUID'
+
 export interface Constructor {
   email: string
   password: string
@@ -15,7 +17,7 @@ export class User {
   username: string
 
   constructor({ username, password, email }: Constructor) {
-    this.id = ''
+    this.id = generateUUID()
     this.username = username
     this.password = password
     this.email = email

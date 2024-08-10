@@ -8,7 +8,7 @@ const create: CurrencyRepository['create'] = async (currency) => {
   const alreadyExists = currencies.some((cur) => cur.id === currency.id)
 
   if (alreadyExists) {
-    throw new Error('Currency already exists')
+    return Promise.reject(new Error('Currency already exists'))
   }
 
   currencies.push(currency)
@@ -20,7 +20,7 @@ const deleteCurrency: CurrencyRepository['delete'] = async (currency) => {
   const foundCurrency = currencies.find((cur) => cur.id === currency.id)
 
   if (!foundCurrency) {
-    throw new Error('Currency not found')
+    return Promise.reject(new Error('Currency not found'))
   }
 
   currencies.splice(currencies.indexOf(foundCurrency), 1)
@@ -40,7 +40,7 @@ const update: CurrencyRepository['update'] = async (currency) => {
   const foundCurrency = currencies.find((cur) => cur.id === currency.id)
 
   if (!foundCurrency) {
-    throw new Error('Currency not found')
+    return Promise.reject(new Error('Currency not found'))
   }
 
   currencies.splice(currencies.indexOf(foundCurrency), 1, currency)
