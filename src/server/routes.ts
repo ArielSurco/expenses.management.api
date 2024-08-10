@@ -1,5 +1,6 @@
 import { type Router } from 'express'
 
+import { currencyRouter } from '../currency/currencyRouter'
 import { userRouter } from '../user/userRouter'
 
 export interface RouterHandler {
@@ -7,4 +8,4 @@ export interface RouterHandler {
   router: Router
 }
 
-export const routes: RouterHandler[] = [userRouter]
+export const routes: RouterHandler[] = [userRouter, currencyRouter]

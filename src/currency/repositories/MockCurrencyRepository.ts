@@ -28,7 +28,7 @@ const deleteCurrency: CurrencyRepository['delete'] = async (currency) => {
   return Promise.resolve()
 }
 
-const find: CurrencyRepository['find'] = async (currencyId) => {
+const findById: CurrencyRepository['findById'] = async (currencyId) => {
   const foundCurrency = currencies.find((cur) => cur.id === currencyId)
 
   return Promise.resolve(foundCurrency ?? null)
@@ -51,7 +51,7 @@ const update: CurrencyRepository['update'] = async (currency) => {
 export const mockCurrencyRepository: CurrencyRepository = {
   create,
   delete: deleteCurrency,
-  find,
+  findById,
   findAll,
   update,
 }
