@@ -24,13 +24,13 @@ export const authUser = Controller<never, AuthUserBody, Response>(async (req, re
   const foundUser = await userRepository.findByEmail(email)
 
   if (!foundUser) {
-    throw new ResponseError(400, 'Invalid email or password')
+    throw new ResponseError(401, 'Invalid email or password')
   }
 
   const isPasswordValid = await bcrypt.compare(password, foundUser.password)
 
   if (!isPasswordValid) {
-    throw new ResponseError(400, 'Invalid email or password')
+    throw new ResponseError(401, 'Invalid email or password')
   }
 
   const token = jwt.sign({ id: foundUser.id }, ENV.JWT_SECRET)
