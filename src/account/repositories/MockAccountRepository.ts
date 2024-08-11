@@ -23,15 +23,10 @@ const deleteAccount: AccountRepository['delete'] = async (account) => {
     throw new Error('Account not found')
   }
 
+  // Modifies directly the account object, so the changes are reflected in the accounts array
   foundAccount.deactivate()
 
   return Promise.resolve()
-}
-
-const find: AccountRepository['find'] = async (id) => {
-  const account = accounts.find((acc) => acc.id === id)
-
-  return Promise.resolve(account ?? null)
 }
 
 const findByUser: AccountRepository['findByUser'] = async (userId) => {
@@ -57,7 +52,6 @@ const update: AccountRepository['update'] = async (account) => {
 export const mockAccountRepository: AccountRepository = {
   create,
   delete: deleteAccount,
-  find,
   findByUser,
   update,
 }

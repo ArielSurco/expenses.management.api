@@ -8,7 +8,6 @@ import { type AccountType } from './AccountType'
 interface Constructor {
   availableBalance: number
   currency: Currency
-  id?: string
   limitCredit?: number
   name: string
   type: AccountType
