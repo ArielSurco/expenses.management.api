@@ -27,6 +27,12 @@ const deleteCategory: CategoryRepository['delete'] = async (categoryId) => {
   return Promise.resolve()
 }
 
+const findById: CategoryRepository['findById'] = async (categoryId) => {
+  const foundCategory = categories.find((c) => c.id === categoryId)
+
+  return Promise.resolve(foundCategory ?? null)
+}
+
 const findByUser: CategoryRepository['findByUser'] = async (userId) => {
   // Include the default (without user) categories
   const userCategories = categories.filter((c) => !c.user || c.user.id === userId)
@@ -37,5 +43,6 @@ const findByUser: CategoryRepository['findByUser'] = async (userId) => {
 export const mockCategoryRepository: CategoryRepository = {
   save,
   delete: deleteCategory,
+  findById,
   findByUser,
 }

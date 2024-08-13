@@ -3,7 +3,7 @@ import { type User } from '../../user/domain/User'
 
 interface Constructor {
   name: string
-  user?: User
+  user?: User | null
 }
 
 export class Category {
