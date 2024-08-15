@@ -3,8 +3,8 @@ import { type MovementRepository } from '../domain/MovementRepository'
 
 const movements: Movement[] = []
 
-const deleteMovement: MovementRepository['delete'] = async (movement) => {
-  const index = movements.findIndex((m) => m.id === movement.id)
+const deleteMovement: MovementRepository['delete'] = async (movementId) => {
+  const index = movements.findIndex((m) => m.id === movementId)
 
   if (index === -1) {
     throw new Error('Movement not found')
@@ -13,6 +13,16 @@ const deleteMovement: MovementRepository['delete'] = async (movement) => {
   movements.splice(index, 1)
 
   return Promise.resolve()
+}
+
+const getById: MovementRepository['getById'] = async (movementId) => {
+  const movement = movements.find((m) => m.id === movementId)
+
+  if (!movement) {
+    throw new Error('Movement not found')
+  }
+
+  return Promise.resolve(movement)
 }
 
 const getByUser: MovementRepository['getByUser'] = async (userId) => {
@@ -35,6 +45,7 @@ const save: MovementRepository['save'] = async (movement) => {
 
 export const mockMovementRepository: MovementRepository = {
   delete: deleteMovement,
+  getById,
   getByUser,
   save,
 }

@@ -14,7 +14,7 @@ interface Constructor {
 
 export class Movement {
   account: Account
-  accountBalance: number
+  remainingBalance: number
   category: Category
   currency: Currency
   date: string
@@ -26,7 +26,7 @@ export class Movement {
   constructor({ account, category, currency, detail, title, value }: Constructor) {
     this.account = account
     // We're assuming that the balance was already updated with the value of the movement
-    this.accountBalance = account.availableBalance
+    this.remainingBalance = account.availableBalance
     this.category = category
     this.currency = currency
     this.date = new Date().toISOString()
@@ -34,5 +34,9 @@ export class Movement {
     this.id = generateUUID()
     this.title = title
     this.value = value
+  }
+
+  public isOwner(userId: string): boolean {
+    return this.account.user.id === userId
   }
 }

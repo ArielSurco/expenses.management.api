@@ -29,6 +29,12 @@ const deleteAccount: AccountRepository['delete'] = async (account) => {
   return Promise.resolve()
 }
 
+const findById: AccountRepository['findById'] = async (accountId) => {
+  const foundAccount = accounts.find((acc) => acc.id === accountId)
+
+  return Promise.resolve(foundAccount ?? null)
+}
+
 const findByUser: AccountRepository['findByUser'] = async (userId) => {
   const userAccounts = accounts.filter((acc) => acc.user.id === userId)
 
@@ -52,6 +58,7 @@ const update: AccountRepository['update'] = async (account) => {
 export const mockAccountRepository: AccountRepository = {
   create,
   delete: deleteAccount,
+  findById,
   findByUser,
   update,
 }

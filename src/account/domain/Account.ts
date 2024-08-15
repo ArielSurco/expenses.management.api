@@ -52,4 +52,12 @@ export class Account {
     this.availableBalance -= value
     this.expenseUpToDate += value
   }
+
+  public isOwner(userId: string): boolean {
+    return this.user.id === userId
+  }
+
+  public canSpend(value: number): boolean {
+    return this.availableBalance >= value
+  }
 }
