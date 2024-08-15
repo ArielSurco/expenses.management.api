@@ -33,7 +33,7 @@ export const authUser = Controller<never, AuthUserBody, Response>(async (req, re
     throw new ResponseError(401, 'Invalid email or password')
   }
 
-  const token = jwt.sign({ id: foundUser.id }, ENV.JWT_SECRET)
+  const token = jwt.sign({ id: foundUser.id }, ENV.JWT_SECRET, { expiresIn: ENV.JWT_EXPIRES_IN })
 
   res.status(200).json({ token })
 })
