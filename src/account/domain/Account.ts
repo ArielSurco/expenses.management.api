@@ -47,4 +47,9 @@ export class Account {
     this.isActive = false
     this.deletedAt = new Date().toISOString()
   }
+
+  public expense(value: number): void {
+    this.availableBalance -= value
+    this.expenseUpToDate += value
+  }
 }
