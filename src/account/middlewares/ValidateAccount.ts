@@ -14,7 +14,7 @@ export const ValidateAccount = asyncMiddleware(
     const foundAccount = await accountRepository.findById(accountId)
 
     if (!foundAccount) {
-      throw new ResponseError(400, 'Invalid currency')
+      throw new ResponseError(400, 'Invalid account')
     }
 
     next()

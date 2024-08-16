@@ -4,7 +4,7 @@ import { ResponseError } from '../../server/ResponseError'
 import { asyncMiddleware } from '../../shared/middlewares/asyncHandler'
 import { categoryRepository } from '../repositories'
 
-export const ValidateCurrency = asyncMiddleware(
+export const ValidateCategory = asyncMiddleware(
   async (
     req: Request<unknown, unknown, Record<string, unknown>>,
     _res: Response,
@@ -14,7 +14,7 @@ export const ValidateCurrency = asyncMiddleware(
     const foundCategory = await categoryRepository.findById(categoryId)
 
     if (!foundCategory) {
-      throw new ResponseError(400, 'Invalid currency')
+      throw new ResponseError(400, 'Invalid category')
     }
 
     next()

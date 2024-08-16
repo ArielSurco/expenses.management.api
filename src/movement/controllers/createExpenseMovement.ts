@@ -31,7 +31,11 @@ export const createExpenseMovement = Controller<never, CreateExpenseMovementBody
     const { id: userId } = decodeAuthToken(req.header('Authorization'))
     const { accountId, categoryId, currencyId, detail, title, value, forceSpend } = req.body
 
-    const foundAccount = await accountRepository.findById(accountId)
+    const [foundAccount, foundCategory, foundCurrency] = await Promise.all([
+      accountRepository.findById(accountId),
+      categoryRepository.findById(categoryId),
+      currencyRepository.findById(currencyId),
+    ])
 
     if (!foundAccount) {
       throw new ResponseError(400, 'Invalid account')
@@ -45,13 +49,9 @@ export const createExpenseMovement = Controller<never, CreateExpenseMovementBody
       throw new ResponseError(400, 'Insufficient funds')
     }
 
-    const foundCategory = await categoryRepository.findById(categoryId)
-
     if (!foundCategory) {
       throw new ResponseError(400, 'Invalid category')
     }
-
-    const foundCurrency = await currencyRepository.findById(currencyId)
 
     if (!foundCurrency) {
       throw new ResponseError(400, 'Invalid currency')
