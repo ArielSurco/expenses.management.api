@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
 
+import { ValidateCurrency } from '../currency/middlewares/ValidateCurrency'
 import { type RouterHandler } from '../server/routes'
-import { asyncMiddleware } from '../shared/middlewares/asyncHandler'
 import { ValidateAuth } from '../shared/middlewares/ValidateAuth'
 import { ValidateSchema } from '../shared/middlewares/ValidateSchema'
 
 import { createAccount, createAccountBodySchema } from './controllers/createAccount'
 import { getAccounts } from './controllers/getAccounts'
-import { ValidateCurrency } from './middlewares/ValidateCurrency'
 
 const router = Router()
 
@@ -18,7 +17,7 @@ router.post(
   '/',
   ValidateAuth,
   ValidateSchema(createAccountBodySchema, 'body'),
-  asyncMiddleware(ValidateCurrency),
+  ValidateCurrency,
   createAccount,
 )
 
