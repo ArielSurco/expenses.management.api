@@ -53,6 +53,11 @@ export class Account {
     this.expenseUpToDate += value
   }
 
+  public income(value: number): void {
+    this.availableBalance += value
+    this.expenseUpToDate -= value
+  }
+
   public isOwner(userId: string): boolean {
     return this.user.id === userId
   }

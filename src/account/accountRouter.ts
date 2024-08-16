@@ -8,6 +8,11 @@ import { ValidateSchema } from '../shared/middlewares/ValidateSchema'
 
 import { createAccount, createAccountBodySchema } from './controllers/createAccount'
 import { getAccounts } from './controllers/getAccounts'
+import {
+  updateBalance,
+  updateBalanceBodySchema,
+  updateBalanceParamsSchema,
+} from './controllers/updateBalance'
 
 const router = Router()
 
@@ -19,6 +24,13 @@ router.post(
   ValidateSchema(createAccountBodySchema, 'body'),
   ValidateCurrency,
   createAccount,
+)
+router.post(
+  '/:id/balance/update',
+  ValidateAuth,
+  ValidateSchema(updateBalanceParamsSchema, 'params'),
+  ValidateSchema(updateBalanceBodySchema, 'body'),
+  updateBalance,
 )
 
 export const accountRouter: RouterHandler = {
