@@ -21,6 +21,7 @@ export const ErrorHandler = (
   const showStack = ENV.NODE_ENV === 'development'
 
   res.status(errorStatus)
+  res.statusMessage = errorMessage
   res.json({
     status: errorStatus,
     message: errorMessage,
