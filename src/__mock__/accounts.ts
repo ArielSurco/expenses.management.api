@@ -12,6 +12,14 @@ export const cashAlejandroAccount = new Account({
   currency: usdCurrency,
 })
 
+export const debitHSBCAlejandroAccount = new Account({
+  name: 'Debit HSBC',
+  type: AccountType.DEBIT,
+  user: userAlejandro,
+  availableBalance: 120590,
+  currency: arsCurrency,
+})
+
 export const cashJoseAccount = new Account({
   name: 'Cash',
   type: AccountType.CASH,

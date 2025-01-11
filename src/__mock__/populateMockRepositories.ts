@@ -3,7 +3,7 @@ import { categoryRepository } from '../category/repositories'
 import { currencyRepository } from '../currency/repositories'
 import { userRepository } from '../user/repositories'
 
-import { cashAlejandroAccount, cashJoseAccount, cashMariaAccount } from './accounts'
+import { cashAlejandroAccount, cashJoseAccount, cashMariaAccount, debitHSBCAlejandroAccount } from './accounts'
 import {
   familyCategory,
   foodCategory,
@@ -38,5 +38,6 @@ export const populateMockRepositories = async () => {
     accountRepository.create(cashAlejandroAccount),
     accountRepository.create(cashJoseAccount),
     accountRepository.create(cashMariaAccount),
+    accountRepository.create(debitHSBCAlejandroAccount),
   ])
 }
