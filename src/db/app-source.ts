@@ -1,6 +1,7 @@
  import { DataSource } from "typeorm";
 
 import { ENV } from "../shared/constants/env";
+import { User } from "../user/domain/User";
 
 const AppDataSource = new DataSource({
   type: 'postgres',
@@ -9,7 +10,7 @@ const AppDataSource = new DataSource({
   username: ENV.DB_USERNAME,
   password: ENV.DB_PASSWORD,
   database: ENV.DB_NAME,
-  entities: [],
+  entities: [User],
   synchronize: true,
   logging: false
 })
