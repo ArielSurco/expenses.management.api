@@ -1,3 +1,3 @@
-import { mockCategoryRepository } from './MockCategoryRepository'
+import { pgCategoryRepository } from './PgCategoryRepository'
 
-export const categoryRepository = mockCategoryRepository
+export const categoryRepository = pgCategoryRepository

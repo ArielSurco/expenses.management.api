@@ -1,19 +1,28 @@
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm'
+
 import { generateUUID } from '../../shared/utils/generateUUID'
-import { type User } from '../../user/domain/User'
+import { User } from '../../user/domain/User'
 
 interface Constructor {
   name: string
   user?: User | null
 }
 
+@Entity()
 export class Category {
+  @PrimaryColumn()
   id: string
+
+  @Column()
   name: string
+
+  @OneToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user?: User | null
 
-  constructor({ name, user }: Constructor) {
+  constructor(params?: Constructor) {
     this.id = generateUUID()
-    this.name = name
-    this.user = user ?? null
+    this.name = params?.name ?? ''
+    this.user = params?.user ?? null
   }
 }

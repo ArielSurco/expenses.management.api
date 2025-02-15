@@ -1,3 +1,5 @@
+import { Column, Entity, PrimaryColumn } from 'typeorm'
+
 import { generateUUID } from '../../shared/utils/generateUUID'
 
 interface Constructor {
@@ -5,14 +7,20 @@ interface Constructor {
   symbol: string
 }
 
+@Entity()
 export class Currency {
+  @PrimaryColumn()
   id: string
+
+  @Column({ unique: true })
   name: string
+
+  @Column({ unique: true })
   symbol: string
 
-  constructor({ name, symbol }: Constructor) {
+  constructor(params?: Constructor) {
     this.id = generateUUID()
-    this.name = name
-    this.symbol = symbol
+    this.name = params?.name ?? ''
+    this.symbol = params?.symbol ?? ''
   }
 }

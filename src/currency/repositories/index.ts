@@ -1,5 +1,5 @@
 import { type CurrencyRepository } from '../domain/CurrencyRepository'
 
-import { mockCurrencyRepository } from './MockCurrencyRepository'
+import { pgCurrencyRepository } from './PgCurrencyRepository'
 
-export const currencyRepository: CurrencyRepository = mockCurrencyRepository
+export const currencyRepository: CurrencyRepository = pgCurrencyRepository

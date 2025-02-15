@@ -1,6 +1,6 @@
 import type { UserRepository } from '../domain/UserRepository'
 
-import AppDataSource from '../../db/app-source'
+import { AppDataSource } from '../../db/app-source'
 import { User } from '../domain/User'
 
 const appUserRepository = AppDataSource.getRepository(User)
