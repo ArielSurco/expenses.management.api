@@ -1,5 +1,5 @@
 import { type AccountRepository } from '../domain/AccountRepository'
 
-import { mockAccountRepository } from './MockAccountRepository'
+import { pgAccountRepository } from './PgAccountRepository'
 
-export const accountRepository: AccountRepository = mockAccountRepository
+export const accountRepository: AccountRepository = pgAccountRepository

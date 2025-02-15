@@ -6,7 +6,7 @@ import { User } from '../domain/User'
 const appUserRepository = AppDataSource.getRepository(User)
 
 const save: UserRepository['save'] = async (user) => {
-  await appUserRepository.save(user)
+  return  appUserRepository.save(user)
 }
 
 const findByUsername: UserRepository['findByUsername'] = async (username) => {

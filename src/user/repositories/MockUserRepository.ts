@@ -12,7 +12,7 @@ const save: UserRepository['save'] = async (user) => {
 
   users.push(user)
 
-  return Promise.resolve()
+  return Promise.resolve(user)
 }
 
 const findByUsername: UserRepository['findByUsername'] = async (username) => {

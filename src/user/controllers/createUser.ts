@@ -1,6 +1,10 @@
 import bcrypt from 'bcrypt'
 import { z } from 'zod'
 
+import { Account } from '../../account/domain/Account'
+import { AccountType } from '../../account/domain/AccountType'
+import { accountRepository } from '../../account/repositories'
+import { currencyRepository } from '../../currency/repositories'
 import { ResponseError } from '../../server/ResponseError'
 import { Controller } from '../../shared/utils/Controller'
 import { User } from '../domain/User'
@@ -32,7 +36,19 @@ export const createUser = Controller<never, CreateUserBody, Response>(async (req
 
   const user = new User({ email, password: hashedPassword, username })
 
-  await userRepository.save(user)
+  const savedUser = await userRepository.save(user)
+
+  const currencies = await currencyRepository.findAll()
+
+  const account = new Account({
+    name: 'Cash',
+    availableBalance: 0,
+    currency: currencies[0],
+    type: AccountType.CASH,
+    user: savedUser,
+  })
+
+  await accountRepository.create(account)
 
   res.json({ message: 'User created' })
 })

@@ -5,5 +5,5 @@ export interface UserRepository {
   findById: (id: string) => Promise<User | null>
   findByUsername: (username: string) => Promise<User | null>
   getAll: () => Promise<User[]>
-  save: (user: User) => Promise<void>
+  save: (user: User) => Promise<User>
 }

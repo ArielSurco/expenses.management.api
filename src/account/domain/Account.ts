@@ -1,9 +1,10 @@
-import type { Currency } from '../../currency/domain/Currency'
-import type { User } from '../../user/domain/User'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 
+import { Currency } from '../../currency/domain/Currency'
 import { generateUUID } from '../../shared/utils/generateUUID'
+import { User } from '../../user/domain/User'
 
-import { type AccountType } from './AccountType'
+import { AccountType } from './AccountType'
 
 interface Constructor {
   availableBalance: number
@@ -14,33 +15,59 @@ interface Constructor {
   user: User
 }
 
+@Entity()
 export class Account {
+  @PrimaryColumn()
   id: string
+
+  @Column()
   availableBalance: number
+
+  @Column({ type: 'timestamp' })
   createdAt: string
+
+  @ManyToOne(() => Currency)
+  @JoinColumn({ name: 'currency_id' })
   currency: Currency
-  deletedAt: string
+
+  @Column({ type: 'timestamp', nullable: true })
+  deletedAt: string | null
+
+  @Column()
   expenseUpToDate: number
+
+  @Column()
   isActive: boolean
+
+  @Column({ nullable: true })
   limitCredit?: number
+
+  @Column()
   name: string
+
+  @Column({ enum: AccountType })
   type: AccountType
+
+  @Column({ type: 'timestamp' })
   updatedAt: string
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
   user: User
 
-  constructor({ name, type, user, availableBalance, currency, limitCredit }: Constructor) {
+  constructor(params?: Constructor) {
     this.id = generateUUID()
-    this.availableBalance = availableBalance
+    this.availableBalance = params?.availableBalance ?? 0
     this.createdAt = new Date().toISOString()
-    this.currency = currency
-    this.deletedAt = ''
+    this.currency = params?.currency ?? new Currency()
+    this.deletedAt = null
     this.expenseUpToDate = 0
     this.isActive = true
-    this.limitCredit = limitCredit ?? 0
-    this.name = name
-    this.type = type
+    this.limitCredit = params?.limitCredit ?? 0
+    this.name = params?.name ?? ''
+    this.type = params?.type ?? AccountType.CASH
     this.updatedAt = new Date().toISOString()
-    this.user = user
+    this.user = params?.user ?? new User()
   }
 
   public deactivate(): void {
