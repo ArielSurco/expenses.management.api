@@ -22,13 +22,19 @@ const deleteAccount: AccountRepository['delete'] = async (account) => {
 }
 
 const findById: AccountRepository['findById'] = async (accountId) => {
-  const foundAccount = await appAccountRepository.findOne({ where: { id: accountId } })
+  const foundAccount = await appAccountRepository.findOne({
+    where: { id: accountId },
+    relations: ['user', 'currency'],
+  })
 
   return Promise.resolve(foundAccount ?? null)
 }
 
 const findByUser: AccountRepository['findByUser'] = async (userId) => {
-  const userAccounts = await appAccountRepository.find({ where: { user: { id: userId } } })
+  const userAccounts = await appAccountRepository.find({
+    where: { user: { id: userId } },
+    relations: ['user', 'currency'],
+  })
 
   return Promise.resolve(userAccounts)
 }

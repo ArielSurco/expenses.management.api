@@ -8,11 +8,11 @@ import { AccountType } from './AccountType'
 
 interface Constructor {
   availableBalance: number
-  currency: Currency
+  currency: Currency | null
   limitCredit?: number
   name: string
   type: AccountType
-  user: User
+  user: User | null
 }
 
 @Entity()
@@ -26,9 +26,9 @@ export class Account {
   @Column({ type: 'timestamp' })
   createdAt: string
 
-  @ManyToOne(() => Currency)
+  @ManyToOne(() => Currency, { nullable: true })
   @JoinColumn({ name: 'currency_id' })
-  currency: Currency
+  currency: Currency | null
 
   @Column({ type: 'timestamp', nullable: true })
   deletedAt: string | null
@@ -51,15 +51,15 @@ export class Account {
   @Column({ type: 'timestamp' })
   updatedAt: string
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { nullable: true })
   @JoinColumn({ name: 'user_id' })
-  user: User
+  user: User | null
 
   constructor(params?: Constructor) {
     this.id = generateUUID()
     this.availableBalance = params?.availableBalance ?? 0
     this.createdAt = new Date().toISOString()
-    this.currency = params?.currency ?? new Currency()
+    this.currency = params?.currency ?? null
     this.deletedAt = null
     this.expenseUpToDate = 0
     this.isActive = true
@@ -67,7 +67,7 @@ export class Account {
     this.name = params?.name ?? ''
     this.type = params?.type ?? AccountType.CASH
     this.updatedAt = new Date().toISOString()
-    this.user = params?.user ?? new User()
+    this.user = params?.user ?? null
   }
 
   public deactivate(): void {
@@ -86,7 +86,7 @@ export class Account {
   }
 
   public isOwner(userId: string): boolean {
-    return this.user.id === userId
+    return this.user?.id === userId
   }
 
   public canSpend(value: number): boolean {

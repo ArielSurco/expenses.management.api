@@ -1,3 +1,3 @@
-import { mockMovementRepository } from './MockMovementRepository'
+import { pgMovementRepository } from './PgMovementRepository'
 
-export const movementRepository = mockMovementRepository
+export const movementRepository = pgMovementRepository

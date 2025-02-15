@@ -26,7 +26,7 @@ const getById: MovementRepository['getById'] = async (movementId) => {
 }
 
 const getByUser: MovementRepository['getByUser'] = async (userId) => {
-  const userMovements = movements.filter((m) => m.account.user.id === userId)
+  const userMovements = movements.filter((m) => m.account.user?.id === userId)
 
   return Promise.resolve(userMovements)
 }
