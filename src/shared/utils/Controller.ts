@@ -5,8 +5,9 @@ type ControllerCallback<
   ParamsDictionary = any,
   RequestBody = Record<string, any>,
   ResponseBody = unknown,
+  RequestQuery = any,
 > = (
-  req: Request<ParamsDictionary, any, RequestBody>,
+  req: Request<ParamsDictionary, any, RequestBody, RequestQuery>,
   res: Response<ResponseBody>,
   next: NextFunction,
 ) => Promise<void> | void
@@ -20,9 +21,10 @@ export const Controller = <
   ParamsDictionary = any,
   RequestBody = Record<string, any>,
   ResponseBody = unknown,
+  RequestQuery = any,
 >(
-  controller: ControllerCallback<ParamsDictionary, RequestBody, ResponseBody>,
-): ControllerCallback<ParamsDictionary, RequestBody, ResponseBody> => {
+  controller: ControllerCallback<ParamsDictionary, RequestBody, ResponseBody, RequestQuery>,
+): ControllerCallback<ParamsDictionary, RequestBody, ResponseBody, RequestQuery> => {
   return async (req, res, next) => {
     try {
       await controller(req, res, next)

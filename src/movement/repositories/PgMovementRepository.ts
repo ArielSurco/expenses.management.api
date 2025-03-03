@@ -27,6 +27,7 @@ const getById: MovementRepository['getById'] = async (movementId) => {
 const getByUser: MovementRepository['getByUser'] = async (userId) => {
   const userMovements = await appMovementRepository.find({
     where: { account: { user: { id: userId } } },
+    relations: ['category', 'currency', 'account', 'account.user', 'category.user'],
   })
 
   return Promise.resolve(userMovements)

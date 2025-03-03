@@ -14,10 +14,13 @@ import {
 } from './controllers/createExpenseMovement'
 import { deleteMovement, deleteMovementParamsSchema } from './controllers/deleteMovement'
 import { getMovements } from './controllers/getMovements'
+import { getMovementsSummary } from './controllers/getMovementsSummary'
 
 const router = Router()
 
 router.get('/', ValidateAuth, getMovements)
+
+router.get('/summary', ValidateAuth, getMovementsSummary)
 
 router.post(
   '/spend',
