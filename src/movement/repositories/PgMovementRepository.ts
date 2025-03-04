@@ -67,6 +67,8 @@ const getMonthlySummariesByUser: MovementRepository['getMonthlySummariesByUser']
     .groupBy('currency.id')
     .addGroupBy(`DATE_PART('month', m.date)`)
     .addGroupBy(`DATE_PART('year', m.date)`)
+    .orderBy('5', 'ASC')
+    .addOrderBy('6', 'ASC')
 
   const rawMovements = await queryBuilder.getRawMany<PgMonthlySummary>()
 
