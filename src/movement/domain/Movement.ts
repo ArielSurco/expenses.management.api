@@ -9,6 +9,7 @@ interface Constructor {
   account: Account
   category: Category | null
   currency: Currency | null
+  date: string
   detail: string
   title: string
   value: number
@@ -52,7 +53,7 @@ export class Movement {
     this.remainingBalance = params?.account.availableBalance ?? 0
     this.category = params?.category ?? null
     this.currency = params?.currency ?? null
-    this.date = new Date().toISOString()
+    this.date = params?.date ?? new Date().toISOString()
     this.detail = params?.detail ?? ''
     this.id = generateUUID()
     this.title = params?.title ?? ''

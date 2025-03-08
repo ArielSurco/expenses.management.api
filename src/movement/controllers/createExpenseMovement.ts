@@ -17,6 +17,7 @@ export const createExpenseMovementBodySchema = z.object({
   title: z.string().min(3),
   value: z.number().min(0),
   forceSpend: z.boolean().optional(),
+  date: z.string().datetime(),
 })
 
 type CreateExpenseMovementBody = z.infer<typeof createExpenseMovementBodySchema>
@@ -29,7 +30,8 @@ interface Response {
 export const createExpenseMovement = Controller<never, CreateExpenseMovementBody, Response>(
   async (req, res) => {
     const { id: userId } = decodeAuthToken(req.header('Authorization'))
-    const { accountId, categoryId, currencyId, detail, title, value, forceSpend } = req.body
+
+    const { accountId, categoryId, currencyId, detail, title, value, forceSpend, date } = req.body
 
     const [foundAccount, foundCategory, foundCurrency] = await Promise.all([
       accountRepository.findById(accountId),
@@ -66,6 +68,7 @@ export const createExpenseMovement = Controller<never, CreateExpenseMovementBody
       detail: detail ?? '',
       title,
       value,
+      date,
     })
 
     await Promise.all([
