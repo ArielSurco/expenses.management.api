@@ -1,3 +1,6 @@
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { DataSource } from 'typeorm'
 
 import { Account } from '../account/domain/Account'
@@ -17,4 +20,9 @@ export const AppDataSource = new DataSource({
   entities: [User, Currency, Category, Account, Movement],
   synchronize: true,
   logging: false,
+  ssl: ENV.SSL_CERT_PATH
+    ? {
+        ca: fs.readFileSync(path.resolve(ENV.SSL_CERT_PATH)).toString(),
+      }
+    : false,
 })

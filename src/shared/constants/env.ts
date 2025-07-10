@@ -11,5 +11,6 @@ export const ENV = {
   DB_PORT: process.env.DB_PORT ?? '',
   DB_USERNAME: process.env.DB_USERNAME ?? '',
   DB_PASSWORD: process.env.DB_PASSWORD ?? '',
-  DB_NAME: process.env.DB_NAME ?? ''
+  DB_NAME: process.env.DB_NAME ?? '',
+  SSL_CERT_PATH: process.env.SSL_CERT_PATH ?? '',
 } as const satisfies Record<string, string | number>
