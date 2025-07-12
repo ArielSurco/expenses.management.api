@@ -36,7 +36,7 @@ const findById: AccountRepository['findById'] = async (accountId) => {
 }
 
 const findByUser: AccountRepository['findByUser'] = async (userId) => {
-  const userAccounts = accounts.filter((acc) => acc.user.id === userId)
+  const userAccounts = accounts.filter((acc) => acc.user?.id === userId)
 
   return Promise.resolve(userAccounts)
 }
