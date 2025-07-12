@@ -1,5 +1,5 @@
 import { type Movement } from '../domain/Movement'
-import { type MovementRepository } from '../domain/MovementRepository'
+import { MonthlySummary, type MovementRepository } from '../domain/MovementRepository'
 
 const movements: Movement[] = []
 
@@ -43,9 +43,25 @@ const save: MovementRepository['save'] = async (movement) => {
   return Promise.resolve()
 }
 
+const getMonthlySummariesByUser: MovementRepository['getMonthlySummariesByUser'] = async (
+  userId,
+) => {
+  const monthlySummaries: MonthlySummary = {
+    budget: 0,
+    currency_id: '',
+    expenses: 0,
+    incomes: 0,
+    month: 0,
+    year: 0,
+  }
+
+  return Promise.resolve([monthlySummaries])
+}
+
 export const mockMovementRepository: MovementRepository = {
   delete: deleteMovement,
   getById,
   getByUser,
+  getMonthlySummariesByUser,
   save,
 }
